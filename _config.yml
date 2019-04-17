@@ -107,7 +107,7 @@ analytics:
 # Site Author
 author:
   name             : "Aniket Shah"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/images/aniket_headshot.jpg"
   bio              : "Data Science Portfolio"
   location         : "Toronto, ON"
   email            :
