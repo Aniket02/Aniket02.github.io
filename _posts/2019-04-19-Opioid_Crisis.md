@@ -8,7 +8,7 @@ excerpt: "Opioid Crisis in US and Canada, Multiple Regression, IBM SPSS"
 mathjax: "true"
 ---
 
-This post is a summary of the analysis done by my teamates and I on hosptilization rates due to Opiod Abuse in the U.S and Canada. It was the final report for the Stat E-150 course at Harvard. You can also read the [entire report](/assets/static/Opioid_Abuse_Report.pdf){:target="_blank"}. We also created a fun news bulletin video summarizing our finding.
+This post is a summary of the analysis done by my teamates and I on hosptilization rates due to Opiod Abuse in the U.S and Canada. It was the final report for the Stat E-150 course at Harvard. You can also read the [entire report](/assets/static/Opioid_Abuse_Report.pdf){:target="_blank"}. We also created a fun news bulletin video summarizing our findings.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/wmePjBy_sZY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Introduction
