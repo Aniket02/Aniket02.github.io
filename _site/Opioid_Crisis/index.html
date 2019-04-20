@@ -1,0 +1,484 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.16.0 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Hospitilization Rates due to Opioid Abuse - Aniket Shah</title>
+<meta name="description" content="Opioid Crisis in US and Canada, Multiple Regression, IBM SPSS">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Aniket Shah">
+<meta property="og:title" content="Hospitilization Rates due to Opioid Abuse">
+<meta property="og:url" content="http://localhost:4000/Opioid_Crisis/">
+
+
+  <meta property="og:description" content="Opioid Crisis in US and Canada, Multiple Regression, IBM SPSS">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/images/opioidAbuse/opioidcrisis.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2019-04-19T00:00:00-04:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/Opioid_Crisis/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Aniket Shah",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Aniket Shah Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">Aniket Shah</a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/data-science/" >Data Science</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" "
+>
+  
+    <img src="/images/opioidAbuse/opioidcrisis.png" alt="Hospitilization Rates due to Opioid Abuse" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/images/aniket_headshot1.jpg" alt="Aniket Shah" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Aniket Shah</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Data Science Portfolio
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Toronto, ON</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:aniket02shah@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+          
+        
+          
+        
+          
+            <li><a href="https://twitter.com/ShAniket91" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+          
+        
+          
+            <li><a href="https://www.facebook.com/aniket.shah2" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+          
+        
+          
+            <li><a href="https://github.com/Aniket02" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Hospitilization Rates due to Opioid Abuse">
+    <meta itemprop="description" content="Opioid Crisis in US and Canada, Multiple Regression, IBM SPSS">
+    <meta itemprop="datePublished" content="April 19, 2019">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Hospitilization Rates due to Opioid Abuse
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  3 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>This post is a summary of the analysis done by my teamates and I on hosptilization rates due to Opiod Abuse in the U.S and Canada. It was the final report for the Stat E-150 course at Harvard. You can also read the <a href="/assets/static/Opioid_Abuse_Report.pdf" target="_blank">entire report</a>.</p>
+
+<h2 id="introduction">Introduction</h2>
+<p>The opioid epidemic is at an all-time high. On average, 115 persons die from opioid abuse every day in the United States of America (U.S.) Between the years 1999 – 2016, the death toll from opioid overdose is estimated to be over 350,000 individuals (CDC, 2017).</p>
+
+<p>The U.S. is not the only country devastated by opioid overdose. Canada is also suffering staggeringly high rates of hospitalization and deaths attributed to opioid abuse. The death toll has more than tripled due to drug overdose in parts of Canada like British Columbia (B.C. Coroners Service, 2018).</p>
+
+<h2 id="method">Method</h2>
+
+<h3 id="participants">Participants</h3>
+
+<p>The data was comprised of over 100,000 male and female participants from both Canada and the U.S that were hospitalized due to opioid abuse. Participants were separated into three <em>age</em> categories, <em>25 to 44, 45 to 64</em> and <em>65 and above</em>. This was a longitudinal observational study; therefore, patients were not recruited for the purpose of this analysis.</p>
+
+<h3 id="datasets">Datasets</h3>
+
+<p>The data set from the U.S. was extracted from the Healthcare Cost and Utilization Project (HCUP). The Canadian data set was provided by the Canadian Institute for Health Information (CIHI) which aggregated data regarding opioid trends from 2007-2015.</p>
+
+<h3 id="procedure">Procedure</h3>
+
+<p>All data sets had opioid rates categorized by only one predictor variable, however, we realized that to run any statistical models on a dataset with multiple predictors, the rates needed to be stratified. Since we evaluated age and gender, the data sets needed to have a rate for each combination of groups, for example, Male &amp; Age 25-44, Female &amp; Age 25-44, Male &amp; Age 45-64, etc. Since the data sets only contained separate rates for each predictor variable, the data was stratified by taking the individual ratios of each group, and multiplying by the national rate.</p>
+
+<script type="math/tex; mode=display">Stratified Rate = \left(AnnualRate\right)\left(\frac{GenderSpecificRate}{TotalRateGender}\right)\left(\frac{AgeGroupSpecificRate}{TotalRateAge}\right)</script>
+
+<p>Our original plan was to run multiple regression for the combined data, however, once we started our analysis it became apparent that we needed to run ANOVA to specifically compare rates between the two countries. It was necessary to run an additional test because the rates in the U.S. were significantly higher than rates in Canada. Therefore, multiple regression models were built to identify patterns within each country separately, and a one-way ANOVA was run the for combined data. Details are provided in the report linked above.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>Through our research we uncovered that in the U.S., the age group of <em>25 to 44 years</em> is significant because it speaks to the pattern of drug abuse which mirrors the three waves of the rise in opioid-related deaths. The first wave was attributed to the 
+use of prescription of opioids in the 1990’s as general pain management. During this time, opioids were being marketed as “safe” and “non-addictive.” Opioids acted as a gateway to stronger drugs like heroin, namely the second wave which began in 2010. It is believed that once students graduated college, they were able to support their drug habit. The third wave began in 2013 with higher rates of opioid related deaths associated with fentanyl (“Understanding the epidemic,” 2017).</p>
+
+<p>In comparison to the U.S., it was found in Canada that those aged <em>65 and older</em> had a higher rate of hospitalization due to opioid abuse. It was noted that there was a difference in prescribing habits between Canada and the U.S. which resulted in an increase in hospitalization in the age category of <em>65 and older</em>. We believe a contributing factor could be comorbidities in that age group due to drug interactions or general decline in health. Although the rate of drug abuse is higher in the U.S., it is important to note that hospitalizations in the <em>65 and older</em> group are proportionally higher in Canada. In summation, our research draws important findings as it relates to the opioid epidemic and provides considerations for future studies.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#hospitilization" class="page__taxonomy-item" rel="tag">hospitilization</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#opioid-abuse" class="page__taxonomy-item" rel="tag">opioid abuse</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#regression" class="page__taxonomy-item" rel="tag">regression</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#spss" class="page__taxonomy-item" rel="tag">spss</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-04-19T00:00:00-04:00">April 19, 2019</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Hospitilization+Rates+due+to+Opioid+Abuse%20http%3A%2F%2Flocalhost%3A4000%2FOpioid_Crisis%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2FOpioid_Crisis%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2FOpioid_Crisis%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+            
+      </div>
+    </div>
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 Aniket Shah. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+  </body>
+</html>
