@@ -1,7 +1,7 @@
 ---
 title: "Hospitilization Rates due to Opioid Abuse"
 date: 2019-04-19
-tags: [opioid abuse, hospitilization, regression, spss]
+tags: [Opioid Abuse, Regression, SPSS]
 header:
   image: "/images/opioidAbuse/opioidcrisis.png"
 excerpt: "Opioid Crisis in US and Canada, Multiple Regression, IBM SPSS"

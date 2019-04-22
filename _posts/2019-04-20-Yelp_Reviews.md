@@ -1,7 +1,7 @@
 ---
 title: "Case Study in Yelp Reviews using Spark ML"
 date: 2019-04-19
-tags: [Spark ML, Yelp, classification, regression]
+tags: [Spark ML, Regression]
 header:
   image: "/images/yelpReviews/reviewWordcloud.jpg"
 excerpt: "Predict the User id of a Yelp Review based on the content of the review"
