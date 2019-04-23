@@ -9,25 +9,29 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Aniket Shah</title>
-<meta name="description" content="Data Science Portfolio">
+<!-- begin _includes/seo.html --><title>Summary of the Seminal paper on Dropouts - Aniket Shah</title>
+<meta name="description" content="A summary of the seminal paper on dropouts by Srivastava et al.">
 
 
 
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="Aniket Shah">
-<meta property="og:title" content="Aniket Shah">
-<meta property="og:url" content="http://localhost:4000/">
+<meta property="og:title" content="Summary of the Seminal paper on Dropouts">
+<meta property="og:url" content="http://localhost:4000/Dropouts/">
+
+
+  <meta property="og:description" content="A summary of the seminal paper on dropouts by Srivastava et al.">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/images/dropouts/dropout.png">
 
 
 
 
-  <meta property="og:image" content="http://localhost:4000/images/skyline_of_toronto.jpg">
 
-
-
-
+  <meta property="article:published_time" content="2019-04-22T00:00:00-04:00">
 
 
 
@@ -38,7 +42,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/">
+<link rel="canonical" href="http://localhost:4000/Dropouts/">
 
 
 
@@ -108,7 +112,7 @@
 
   </head>
 
-  <body class="layout--home">
+  <body class="layout--single">
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -164,7 +168,7 @@
   style=" "
 >
   
-    <img src="/images/skyline_of_toronto.jpg" alt="" class="page__hero-image">
+    <img src="/images/dropouts/dropout.png" alt="Summary of the Seminal paper on Dropouts" class="page__hero-image">
   
   
 </div>
@@ -298,48 +302,118 @@
   </div>
 
 
-  <div class="archive">
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Summary of the Seminal paper on Dropouts">
+    <meta itemprop="description" content="A summary of the seminal paper on dropouts by Srivastava et al.">
+    <meta itemprop="datePublished" content="April 22, 2019">
     
-      <h1 id="page-title" class="page__title"></h1>
-    
-    
 
-<h3 class="archive__subtitle">Recent posts</h3>
-
-
-  
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
+    <div class="page__inner-wrap">
       
-        <a href="/Dropouts/" rel="permalink">Summary of the Seminal paper on Dropouts
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Summary of the Seminal paper on Dropouts
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
 
 
 
 
   2 minute read
 </p>
-    
-    <p class="archive__item-excerpt" itemprop="description">A summary of the seminal paper on dropouts by Srivastava et al.
-</p>
-  </article>
-</div>
+          
+        </header>
+      
 
+      <section class="page__content" itemprop="text">
+        
+        <p>In this post, I summarize the paper titled, “<strong>Dropouts: A Simple Way to Prevent Neural Networks from
+Overtting</strong>” by Srivastava et al., publised in Journal of Machine Learning (2014).</p>
 
+<p>Dropouts is a regularization technique for neural networks that was introduced to reduce over-fitting introduced in models with millions of parameters, but trained on limited data. The best way to regularize a fixed-sized model is to average the predictions of all possible settings of the parameters, weighing each setting by it’s posterior probability given the training data, but this would involve unlimited computation and is prohibitively expensive. Even if computation is not an issue, large networks require large amounts of training data and there may not be enough data available to train different networks on different subsets of data.</p>
+
+<p>Dropouts addresses both these issues of computation and data availability. It provides a way of approximately combining exponentially many different neural networks efficiently. It does this by dropping out units at random, temporarily removing it from the network, along with all it’s incoming and outgoing connections. Training a neural network with dropout can be seen as training a collection of 2^n thinned networks with weight sharing, where each thinned network gets trained very rarely, if at all. How is this handled at test time, as it is not feasible to average the predictions from exponentially many thinned models?</p>
+
+<p>Instead, a simple approximate averaging method is used, where the weights of the network, with all it’s units at test time, are scaled-down versions of the trained weights. If a unit is retained with probability p during training, the outgoing weights of that unit are multiplied by p at test time. This ensures that for any hidden unit, the expected output (given dropout probability p) is the same as the actual output at test time.</p>
+
+<p>The authors applied dropout on multiple classification datasets in various domain, in vision (MNIST, SVHN, CIFAR-10/100, ImageNet), speech (TIMIT), text and genetics. In all, they looked at the state-of-the-art techniques with and without dropout, observing the test error. The improvement was much smaller in the text dataset compared to that for the vision and speech data sets. In all cases, the optimal dropout probability p was found to be 0.5 for hidden units and 0.8 for input units. Dropout breaks up co-adaptations and the activations of the hidden units become sparse, which is why it leads to lower generalization errors.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
   
 
 
+  
+  
+  
 
-<div class="list__item">
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#dropouts" class="page__taxonomy-item" rel="tag">Dropouts</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#summary" class="page__taxonomy-item" rel="tag">Summary</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-04-22T00:00:00-04:00">April 22, 2019</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Summary+of+the+Seminal+paper+on+Dropouts%20http%3A%2F%2Flocalhost%3A4000%2FDropouts%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2FDropouts%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2FDropouts%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/Yelp_Reviews/" class="pagination--pager" title="Case Study in Yelp Reviews using Spark ML
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
   <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title" itemprop="headline">
@@ -362,12 +436,12 @@
   </article>
 </div>
 
+        
+          
 
-  
 
 
-
-<div class="list__item">
+<div class="grid__item">
   <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
     <h2 class="archive__item-title" itemprop="headline">
@@ -390,13 +464,13 @@
   </article>
 </div>
 
-
-
-
-
-
-  </div>
+        
+      </div>
+    </div>
+  
+  
 </div>
+
     </div>
 
     
@@ -457,8 +531,31 @@
 
 
 
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/Dropouts/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/Dropouts"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://aniket-1.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
 
+  
+
+
+
+
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
 
 
 
