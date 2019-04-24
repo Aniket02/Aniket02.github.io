@@ -1,4 +1,63 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-04-22T23:28:41-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Aniket Shah</title><subtitle>Data Science Portfolio</subtitle><author><name>Aniket Shah</name></author><entry><title type="html">Summary of the Seminal paper on Dropouts</title><link href="http://localhost:4000/Dropouts/" rel="alternate" type="text/html" title="Summary of the Seminal paper on Dropouts" /><published>2019-04-22T00:00:00-04:00</published><updated>2019-04-22T00:00:00-04:00</updated><id>http://localhost:4000/Dropouts</id><content type="html" xml:base="http://localhost:4000/Dropouts/">&lt;p&gt;In this post, I summarize the paper titled, “&lt;strong&gt;Dropouts: A Simple Way to Prevent Neural Networks from
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-04-24T11:09:04-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Aniket Shah</title><subtitle>Data Science Portfolio</subtitle><author><name>Aniket Shah</name></author><entry><title type="html">Shakespeare plays analysis</title><link href="http://localhost:4000/Shakespeare/" rel="alternate" type="text/html" title="Shakespeare plays analysis" /><published>2019-04-22T00:00:00-04:00</published><updated>2019-04-22T00:00:00-04:00</updated><id>http://localhost:4000/Shakespeare</id><content type="html" xml:base="http://localhost:4000/Shakespeare/">&lt;h2 id=&quot;motivation&quot;&gt;Motivation&lt;/h2&gt;
+
+&lt;p&gt;The aim of this post will be to analyze Shakespeare plays and determine whether some of the plays or parts of plays were not written by Shakespeare. The code is detailed in the jupyter &lt;a href=&quot;/assets/static/notebooks/shakespeare/ShakespearePlayAttribution.ipynb&quot; target=&quot;_blank&quot;&gt;notebook&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;description&quot;&gt;Description&lt;/h2&gt;
+
+&lt;p&gt;A number of Shakespeare plays along with its sections are given in a data-set available in Kaggle. The data-set is cleaned by dropping the NA values. After that, various sub-section lines are merged into a single section. For example, the sub-sections like 1.1.1, 1.1.2, etc are merged into 1.1.&lt;/p&gt;
+
+&lt;p&gt;Once the data is grouped into sections, various syntactic, semantic and functional features of the sections are extracted and clustered to identify the sections which have not been written by Shakespeare. Since, it is very unlikely that Shakespeare might not have any contribution to the whole play, our analysis was done on various sub-sections of the plays. Also, it will help us give
+a more granular picture on the various sections across different plays which might not have been written by Shakespeare/&lt;/p&gt;
+
+&lt;h2 id=&quot;feature-extraction&quot;&gt;Feature Extraction&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Word Analysis:&lt;/strong&gt; Stats such as average and standard deviation of the number of words in a sentence, and the diversity (number of unique words vs. total words) were collected for each section.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Punctuation analysis:&lt;/strong&gt; An author’s signature can include the unique combination of punctuation marks used in his/her writing. So, we takes stats of the number of commas, colons and semicolons user per sentence for each section.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;BagOfWords:&lt;/strong&gt; This feature takes the top 100 words found in the entire text, and counts the occurence of each for every section. To not many columns (100), we reduce the dimensions by applying TruncatedSVD on the count matrix.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Funtional BagOfWords:&lt;/strong&gt; This feature is similar to the one above except that the vocabulary includes only functional words, modiﬁed for 16-17th century, that are known to help deﬁne an authors signature in word adjacency networks according to research. Functional words found in Shakespearan english which are different than modern english. Note, words like ’yt it’ represent it, ’wid wyth wytt wi wt wth’ represent with and are not misspellings. Functional word source: &lt;a href=&quot;http://web.mit.edu/segarra/www/papers/MSc_Thesis_Segarra.pdf&quot;&gt;MSc_Thesis_Segarra&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;ScenesLSA:&lt;/strong&gt; This feature is the tf-idf matrix of all words in the collection that occur in atleast 75 sections, and reduced dimensionaly using TruncateSVD (LSA).&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;ngramTFIDF:&lt;/strong&gt; This feature is a tf-idf matrix of unigrams, bigrams and tri-grams that occur in atleast 75 sections, and no more than 20% of the sections. The average sentence length is approximately 3 accross the collection and hence this shoud capture some common sentenes/phrases across sections.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Couple of feaures like tf-idf matrix of functional words and parts-of-speech tags were
+not found to be useful for the shakespeare corpus.&lt;/p&gt;
+
+&lt;h2 id=&quot;clustering-and-ensemble-voting&quot;&gt;Clustering and Ensemble Voting&lt;/h2&gt;
+
+&lt;p&gt;Once the different features are extracted, clustering is applied one each set of features to divide them into groups of two. One group of sections will correspond to Shakespeare and the other to non-Shakespeare authors. The majority group is given to Shakespeare, with the assumption that the majority of sections will have been written by him. After that, ensemble voting is done across the various clustering groups for different set of features. Then by using majority voting, we determine if a section is written by Shakespeare or not. For example, let’s say cluster 0 corresponds to Shakespeare plays and cluster 1 to non-Shakespeare plays. If section 1.1 belongs to cluster 0 for features 0, 1, 2 and 3, to cluster 1 for features 4 and 5, we can conclude that section 1.1 belongs to cluster 0 since it was found to be in cluster 0 for 4 different features. In case of ties, where the
+section is present in equal number of cluster groups for various sections, we assign it to shakespeare, given the beneﬁt of doubt.&lt;/p&gt;
+
+&lt;p&gt;After ensemble voting is done, various sections corresponding to non-Shakespeare authors are determined and printed for reference.&lt;/p&gt;
+
+&lt;h3 id=&quot;different-types-of-clustering-and-the-optimum-number-of-clusters&quot;&gt;Different types of clustering and the optimum number of clusters&lt;/h3&gt;
+
+&lt;p&gt;KMeans, DBScan and Agglomerative clustering (a type of hierarchical clustering) are tried. Silhouette score measure is used to identify the optimum number of clusters in each of the techniques. It was found that across the various features, using the Silhouette score, was found as the optimum cluster number for k-means and agglomerative clustering. It was also found that DBscan gave only one cluster for all the features, and hence, was dropped from our clustering methods.&lt;/p&gt;
+
+&lt;h3 id=&quot;visualization-of-the-data-before-and-after-clustering-across-features&quot;&gt;Visualization of the data before and after clustering across features&lt;/h3&gt;
+
+&lt;p&gt;Different types of visualization schemes like TSNE, PCA and LSA (with Truncated SVD) are used for visualizing the data before and after clustering. Pre-clustering visualization is done to check the distribution of the various sections for the different sets of features and to determine if the clustering done above can give good results. Post-clustering (k-means &amp;amp; Agglomerative)
+visualization is done to validate if properly distinct clusters have been identified by clustering.&lt;/p&gt;
+
+&lt;h4 id=&quot;lexical-features&quot;&gt;Lexical Features&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/shakespeare/LexicalFeatures.png&quot; alt=&quot;Lexical Word Features plot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/shakespeare/LexicalFeaturesKMeans.png&quot; alt=&quot;Lexical Word Features plot with Kmeans clustering&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/shakespeare/LexicalFeaturesAgglomerative.png&quot; alt=&quot;Lexical Word Features plot with Agglomerative clustering&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;punctual-features&quot;&gt;Punctual Features&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/shakespeare/PunctualFeatures.png&quot; alt=&quot;Punctual Word Features plot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/shakespeare/PunctualFeaturesKMeans.png&quot; alt=&quot;Punctual Word Features plot with Kmeans clustering&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/shakespeare/PunctualFeaturesAgglomerative.png&quot; alt=&quot;Punctual Word Features plot with Agglomerative clustering&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;A novel approach of feature extraction and ensemble voting by clustering is done here to determine the various play-sections which might have not been written by Shakespeare. An in-depth feature extraction is done from the plays to identify the textual features that alltogether, encompass the writing signature of Shakespeare. K-means an Agglomerative clustering methods are applied to create two clusters. The majority cluster written by Shakespeare and the second, minority cluster, belonging to other authors. It was found that around 100 sections out of total 732 sections had patterns different to those of Shakespearan written sections, and hence, possibly written by other authors.&lt;/p&gt;</content><author><name>Aniket Shah</name></author><category term="NLP" /><category term="Classification" /><summary type="html">Using NLP, determine whether some of the plays or parts of plays were not witten by Shakespeare</summary></entry><entry><title type="html">Summary of the Seminal paper on Dropouts</title><link href="http://localhost:4000/Dropouts/" rel="alternate" type="text/html" title="Summary of the Seminal paper on Dropouts" /><published>2019-04-22T00:00:00-04:00</published><updated>2019-04-22T00:00:00-04:00</updated><id>http://localhost:4000/Dropouts</id><content type="html" xml:base="http://localhost:4000/Dropouts/">&lt;p&gt;In this post, I summarize the paper titled, “&lt;strong&gt;Dropouts: A Simple Way to Prevent Neural Networks from
 Overtting&lt;/strong&gt;” by Srivastava et al., publised in Journal of Machine Learning (2014).&lt;/p&gt;
 
 &lt;p&gt;Dropouts is a regularization technique for neural networks that was introduced to reduce over-fitting introduced in models with millions of parameters, but trained on limited data. The best way to regularize a fixed-sized model is to average the predictions of all possible settings of the parameters, weighing each setting by it’s posterior probability given the training data, but this would involve unlimited computation and is prohibitively expensive. Even if computation is not an issue, large networks require large amounts of training data and there may not be enough data available to train different networks on different subsets of data.&lt;/p&gt;

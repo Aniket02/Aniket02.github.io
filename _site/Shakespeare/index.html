@@ -9,23 +9,23 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Summary of the Seminal paper on Dropouts - Aniket Shah</title>
-<meta name="description" content="A summary of the seminal paper on dropouts by Srivastava et al.">
+<!-- begin _includes/seo.html --><title>Shakespeare plays analysis - Aniket Shah</title>
+<meta name="description" content="Using NLP, determine whether some of the plays or parts of plays were not witten by Shakespeare">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="Aniket Shah">
-<meta property="og:title" content="Summary of the Seminal paper on Dropouts">
-<meta property="og:url" content="http://localhost:4000/Dropouts/">
+<meta property="og:title" content="Shakespeare plays analysis">
+<meta property="og:url" content="http://localhost:4000/Shakespeare/">
 
 
-  <meta property="og:description" content="A summary of the seminal paper on dropouts by Srivastava et al.">
+  <meta property="og:description" content="Using NLP, determine whether some of the plays or parts of plays were not witten by Shakespeare">
 
 
 
-  <meta property="og:image" content="http://localhost:4000/images/dropouts/dropout.png">
+  <meta property="og:image" content="http://localhost:4000/images/shakespeare/WShakespeares_Plays.jpg">
 
 
 
@@ -42,7 +42,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/Dropouts/">
+<link rel="canonical" href="http://localhost:4000/Shakespeare/">
 
 
 
@@ -168,7 +168,7 @@
   style=" "
 >
   
-    <img src="/images/dropouts/dropout.png" alt="Summary of the Seminal paper on Dropouts" class="page__hero-image">
+    <img src="/images/shakespeare/WShakespeares_Plays.jpg" alt="Shakespeare plays analysis" class="page__hero-image">
   
   
 </div>
@@ -303,15 +303,15 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Summary of the Seminal paper on Dropouts">
-    <meta itemprop="description" content="A summary of the seminal paper on dropouts by Srivastava et al.">
+    <meta itemprop="headline" content="Shakespeare plays analysis">
+    <meta itemprop="description" content="Using NLP, determine whether some of the plays or parts of plays were not witten by Shakespeare">
     <meta itemprop="datePublished" content="April 22, 2019">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">Summary of the Seminal paper on Dropouts
+          <h1 id="page-title" class="page__title" itemprop="headline">Shakespeare plays analysis
 </h1>
           
             <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
@@ -319,7 +319,7 @@
 
 
 
-  2 minute read
+  4 minute read
 </p>
           
         </header>
@@ -327,16 +327,66 @@
 
       <section class="page__content" itemprop="text">
         
-        <p>In this post, I summarize the paper titled, “<strong>Dropouts: A Simple Way to Prevent Neural Networks from
-Overtting</strong>” by Srivastava et al., publised in Journal of Machine Learning (2014).</p>
+        <h2 id="motivation">Motivation</h2>
 
-<p>Dropouts is a regularization technique for neural networks that was introduced to reduce over-fitting introduced in models with millions of parameters, but trained on limited data. The best way to regularize a fixed-sized model is to average the predictions of all possible settings of the parameters, weighing each setting by it’s posterior probability given the training data, but this would involve unlimited computation and is prohibitively expensive. Even if computation is not an issue, large networks require large amounts of training data and there may not be enough data available to train different networks on different subsets of data.</p>
+<p>The aim of this post will be to analyze Shakespeare plays and determine whether some of the plays or parts of plays were not written by Shakespeare. The code is detailed in the jupyter <a href="/assets/static/notebooks/shakespeare/ShakespearePlayAttribution.ipynb" target="_blank">notebook</a>.</p>
 
-<p>Dropouts addresses both these issues of computation and data availability. It provides a way of approximately combining exponentially many different neural networks efficiently. It does this by dropping out units at random, temporarily removing it from the network, along with all it’s incoming and outgoing connections. Training a neural network with dropout can be seen as training a collection of <script type="math/tex">2^n</script> thinned networks with weight sharing, where each thinned network gets trained very rarely, if at all. How is this handled at test time, as it is not feasible to average the predictions from exponentially many thinned models?</p>
+<h2 id="description">Description</h2>
 
-<p>Instead, a simple approximate averaging method is used, where the weights of the network, with all it’s units at test time, are scaled-down versions of the trained weights. If a unit is retained with probability p during training, the outgoing weights of that unit are multiplied by p at test time. This ensures that for any hidden unit, the expected output (given dropout probability <script type="math/tex">p</script>) is the same as the actual output at test time.</p>
+<p>A number of Shakespeare plays along with its sections are given in a data-set available in Kaggle. The data-set is cleaned by dropping the NA values. After that, various sub-section lines are merged into a single section. For example, the sub-sections like 1.1.1, 1.1.2, etc are merged into 1.1.</p>
 
-<p>The authors applied dropout on multiple classification datasets in various domain, in vision (MNIST, SVHN, CIFAR-10/100, ImageNet), speech (TIMIT), text and genetics. In all, they looked at the state-of-the-art techniques with and without dropout, observing the test error. The improvement was much smaller in the text dataset compared to that for the vision and speech data sets. In all cases, the optimal dropout probability <script type="math/tex">p</script> was found to be 0.5 for hidden units and 0.8 for input units. Dropout breaks up co-adaptations and the activations of the hidden units become sparse, which is why it leads to lower generalization errors.</p>
+<p>Once the data is grouped into sections, various syntactic, semantic and functional features of the sections are extracted and clustered to identify the sections which have not been written by Shakespeare. Since, it is very unlikely that Shakespeare might not have any contribution to the whole play, our analysis was done on various sub-sections of the plays. Also, it will help us give
+a more granular picture on the various sections across different plays which might not have been written by Shakespeare/</p>
+
+<h2 id="feature-extraction">Feature Extraction</h2>
+
+<ol>
+  <li><strong>Word Analysis:</strong> Stats such as average and standard deviation of the number of words in a sentence, and the diversity (number of unique words vs. total words) were collected for each section.</li>
+  <li><strong>Punctuation analysis:</strong> An author’s signature can include the unique combination of punctuation marks used in his/her writing. So, we takes stats of the number of commas, colons and semicolons user per sentence for each section.</li>
+  <li><strong>BagOfWords:</strong> This feature takes the top 100 words found in the entire text, and counts the occurence of each for every section. To not many columns (100), we reduce the dimensions by applying TruncatedSVD on the count matrix.</li>
+  <li><strong>Funtional BagOfWords:</strong> This feature is similar to the one above except that the vocabulary includes only functional words, modiﬁed for 16-17th century, that are known to help deﬁne an authors signature in word adjacency networks according to research. Functional words found in Shakespearan english which are different than modern english. Note, words like ’yt it’ represent it, ’wid wyth wytt wi wt wth’ represent with and are not misspellings. Functional word source: <a href="http://web.mit.edu/segarra/www/papers/MSc_Thesis_Segarra.pdf">MSc_Thesis_Segarra</a></li>
+  <li><strong>ScenesLSA:</strong> This feature is the tf-idf matrix of all words in the collection that occur in atleast 75 sections, and reduced dimensionaly using TruncateSVD (LSA).</li>
+  <li><strong>ngramTFIDF:</strong> This feature is a tf-idf matrix of unigrams, bigrams and tri-grams that occur in atleast 75 sections, and no more than 20% of the sections. The average sentence length is approximately 3 accross the collection and hence this shoud capture some common sentenes/phrases across sections.</li>
+</ol>
+
+<p><strong>Note:</strong> Couple of feaures like tf-idf matrix of functional words and parts-of-speech tags were
+not found to be useful for the shakespeare corpus.</p>
+
+<h2 id="clustering-and-ensemble-voting">Clustering and Ensemble Voting</h2>
+
+<p>Once the different features are extracted, clustering is applied one each set of features to divide them into groups of two. One group of sections will correspond to Shakespeare and the other to non-Shakespeare authors. The majority group is given to Shakespeare, with the assumption that the majority of sections will have been written by him. After that, ensemble voting is done across the various clustering groups for different set of features. Then by using majority voting, we determine if a section is written by Shakespeare or not. For example, let’s say cluster 0 corresponds to Shakespeare plays and cluster 1 to non-Shakespeare plays. If section 1.1 belongs to cluster 0 for features 0, 1, 2 and 3, to cluster 1 for features 4 and 5, we can conclude that section 1.1 belongs to cluster 0 since it was found to be in cluster 0 for 4 different features. In case of ties, where the
+section is present in equal number of cluster groups for various sections, we assign it to shakespeare, given the beneﬁt of doubt.</p>
+
+<p>After ensemble voting is done, various sections corresponding to non-Shakespeare authors are determined and printed for reference.</p>
+
+<h3 id="different-types-of-clustering-and-the-optimum-number-of-clusters">Different types of clustering and the optimum number of clusters</h3>
+
+<p>KMeans, DBScan and Agglomerative clustering (a type of hierarchical clustering) are tried. Silhouette score measure is used to identify the optimum number of clusters in each of the techniques. It was found that across the various features, using the Silhouette score, was found as the optimum cluster number for k-means and agglomerative clustering. It was also found that DBscan gave only one cluster for all the features, and hence, was dropped from our clustering methods.</p>
+
+<h3 id="visualization-of-the-data-before-and-after-clustering-across-features">Visualization of the data before and after clustering across features</h3>
+
+<p>Different types of visualization schemes like TSNE, PCA and LSA (with Truncated SVD) are used for visualizing the data before and after clustering. Pre-clustering visualization is done to check the distribution of the various sections for the different sets of features and to determine if the clustering done above can give good results. Post-clustering (k-means &amp; Agglomerative)
+visualization is done to validate if properly distinct clusters have been identified by clustering.</p>
+
+<h4 id="lexical-features">Lexical Features</h4>
+
+<p><img src="http://localhost:4000/images/shakespeare/LexicalFeatures.png" alt="Lexical Word Features plot" /></p>
+
+<p><img src="http://localhost:4000/images/shakespeare/LexicalFeaturesKMeans.png" alt="Lexical Word Features plot with Kmeans clustering" /></p>
+
+<p><img src="http://localhost:4000/images/shakespeare/LexicalFeaturesAgglomerative.png" alt="Lexical Word Features plot with Agglomerative clustering" /></p>
+
+<h4 id="punctual-features">Punctual Features</h4>
+
+<p><img src="http://localhost:4000/images/shakespeare/PunctualFeatures.png" alt="Punctual Word Features plot" /></p>
+
+<p><img src="http://localhost:4000/images/shakespeare/PunctualFeaturesKMeans.png" alt="Punctual Word Features plot with Kmeans clustering" /></p>
+
+<p><img src="http://localhost:4000/images/shakespeare/PunctualFeaturesAgglomerative.png" alt="Punctual Word Features plot with Agglomerative clustering" /></p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>A novel approach of feature extraction and ensemble voting by clustering is done here to determine the various play-sections which might have not been written by Shakespeare. An in-depth feature extraction is done from the plays to identify the textual features that alltogether, encompass the writing signature of Shakespeare. K-means an Agglomerative clustering methods are applied to create two clusters. The majority cluster written by Shakespeare and the second, minority cluster, belonging to other authors. It was found that around 100 sections out of total 732 sections had patterns different to those of Shakespearan written sections, and hence, possibly written by other authors.</p>
 
         
       </section>
@@ -357,11 +407,11 @@ Overtting</strong>” by Srivastava et al., publised in Journal of Machine Lear
     
       
       
-      <a href="/tags/#dropouts" class="page__taxonomy-item" rel="tag">Dropouts</a><span class="sep">, </span>
+      <a href="/tags/#classification" class="page__taxonomy-item" rel="tag">Classification</a><span class="sep">, </span>
     
       
       
-      <a href="/tags/#summary" class="page__taxonomy-item" rel="tag">Summary</a>
+      <a href="/tags/#nlp" class="page__taxonomy-item" rel="tag">NLP</a>
     
     </span>
   </p>
@@ -379,23 +429,22 @@ Overtting</strong>” by Srivastava et al., publised in Journal of Machine Lear
     <h4 class="page__share-title">Share on</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=Summary+of+the+Seminal+paper+on+Dropouts%20http%3A%2F%2Flocalhost%3A4000%2FDropouts%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=Shakespeare+plays+analysis%20http%3A%2F%2Flocalhost%3A4000%2FShakespeare%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2FDropouts%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2FShakespeare%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2FDropouts%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2FShakespeare%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/Yelp_Reviews/" class="pagination--pager" title="Case Study in Yelp Reviews using Spark ML
+      <a href="/Dropouts/" class="pagination--pager" title="Summary of the Seminal paper on Dropouts
 ">Previous</a>
     
     
-      <a href="/Shakespeare/" class="pagination--pager" title="Shakespeare plays analysis
-">Next</a>
+      <a href="#" class="pagination--pager disabled">Next</a>
     
   </nav>
 
@@ -419,7 +468,7 @@ Overtting</strong>” by Srivastava et al., publised in Journal of Machine Lear
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/Shakespeare/" rel="permalink">Shakespeare plays analysis
+        <a href="/Dropouts/" rel="permalink">Summary of the Seminal paper on Dropouts
 </a>
       
     </h2>
@@ -429,10 +478,10 @@ Overtting</strong>” by Srivastava et al., publised in Journal of Machine Lear
 
 
 
-  4 minute read
+  2 minute read
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">Using NLP, determine whether some of the plays or parts of plays were not witten by Shakespeare
+    <p class="archive__item-excerpt" itemprop="description">A summary of the seminal paper on dropouts by Srivastava et al.
 </p>
   </article>
 </div>
@@ -563,8 +612,8 @@ Overtting</strong>” by Srivastava et al., publised in Journal of Machine Lear
     
   <script>
     var disqus_config = function () {
-      this.page.url = "http://localhost:4000/Dropouts/";  // Replace PAGE_URL with your page's canonical URL variable
-      this.page.identifier = "/Dropouts"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      this.page.url = "http://localhost:4000/Shakespeare/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/Shakespeare"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() { // DON'T EDIT BELOW THIS LINE
       var d = document, s = d.createElement('script');
