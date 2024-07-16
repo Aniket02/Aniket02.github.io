@@ -19,7 +19,7 @@ locale                   : "en-US"
 title                    : "Aniket Shah"
 title_separator          : "-"
 name                     : "Aniket Shah"
-description              : "Data Science Portfolio"
+description              : "Senior Data Engineer"
 url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
@@ -108,8 +108,8 @@ analytics:
 author:
   name             : "Aniket Shah"
   avatar           : "/images/aniket_headshot1.jpg"
-  bio              : "Data Science Portfolio"
-  location         : "Toronto, ON"
+  bio              : "Senior Data Engineer"
+  location         : "Remote"
   email            :
   links:
     - label: "Email"
